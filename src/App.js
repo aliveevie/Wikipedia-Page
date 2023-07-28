@@ -36,6 +36,8 @@ function App() {
       setShowInput(prev => !prev)
   };
 
+  
+
   return (
     <div className="App">
       <header className="App-header">
@@ -50,20 +52,26 @@ function App() {
       {showInput && ( // Show the input form if the input form is visible
         <>
           <input type="text" value={searchTerm} onChange={handleChange} />
-          <button onClick={handleSearch}>Search</button>
+          <button className='clear-button' onClick={handleSearchButton}>
+            X
+          </button>
+          <button onClick={handleSearch}>search</button>
         </>
       )}
     </div>
-      <ul>
-      {searchResults.map((result) => (
-          <li key={result.pageid}>
-            <a href={`https://en.wikipedia.org/?curid=${result.pageid}`} target="_blank" rel="noopener noreferrer">
-              <h3>{result.title}</h3>
-              <div dangerouslySetInnerHTML={{ __html: truncateDescription(result.snippet) }} />
-            </a>
-          </li>
-        ))}
-      </ul>
+    {showInput && (
+        <ul>
+        {searchResults.map((result) => (
+            <li key={result.pageid}>
+              <a href={`https://en.wikipedia.org/?curid=${result.pageid}`} target="_blank" rel="noopener noreferrer">
+                <h3>{result.title}</h3>
+                <div dangerouslySetInnerHTML={{ __html: truncateDescription(result.snippet) }} />
+              </a>
+            </li>
+          ))}
+        </ul>
+    )}
+      
       </header>
     </div>
   );
