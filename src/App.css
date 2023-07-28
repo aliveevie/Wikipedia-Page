@@ -94,4 +94,9 @@ li {
   transform: scale(1.1); /* Slightly scale up the button on hover */
 }
 
+.input-container button:first-child {
+  background-color: transparent;
+  width: 20px;
+}
+
 

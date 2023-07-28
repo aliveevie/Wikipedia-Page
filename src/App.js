@@ -1,13 +1,14 @@
 import './App.css';
 import axios from 'axios';
 import { useState} from 'react';
-
+import searchIcon from './icons/searchIcon.png'
 
 
 
 function App() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [showInput, setShowInput] = useState(false);
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
@@ -31,15 +32,28 @@ function App() {
     return lines.slice(0, maxLines).join('\n');
   };
 
-  
+  function handleSearchButton(){
+      setShowInput(prev => !prev)
+  };
 
   return (
     <div className="App">
       <header className="App-header">
-        <div className='input-container'>
-      <input type="text" value={searchTerm} onChange={handleChange} />
-      <button onClick={handleSearch}>Search</button>
-      </div>
+      <div className='input-container'>
+      {!showInput && ( // Only show the search button if the input form is hidden
+        <div>
+          <button onClick={handleSearchButton}>
+            <img src={searchIcon} alt='The search Icon'/>
+          </button>
+        </div>
+      )}
+      {showInput && ( // Show the input form if the input form is visible
+        <>
+          <input type="text" value={searchTerm} onChange={handleChange} />
+          <button onClick={handleSearch}>Search</button>
+        </>
+      )}
+    </div>
       <ul>
       {searchResults.map((result) => (
           <li key={result.pageid}>
